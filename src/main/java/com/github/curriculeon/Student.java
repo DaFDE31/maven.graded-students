@@ -1,48 +1,74 @@
 package com.github.curriculeon;
 
 
+import java.util.Arrays;
+import java.util.Collection;
+
 public class Student implements Comparable<Student> {
 
+    private String firstName;
+
+    private String lastName;
+
+    private Double[] scores;
+
     public Student(String firstName, String lastName, Double[] testScores) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.scores = testScores;
     }
 
     public Student() {
-
     }
 
     public String getFirstName() {
-        return null;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return null;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Double[] getExamScores() {
-        return null;
+        return scores;
     }
 
     public void addExamScore(double examScore) {
+        Double[] update = new Double[scores.length+1];
+        System.arraycopy(scores, 0, update, 0, scores.length);
+        update[update.length-1] = examScore;
+        scores = update;
     }
 
 
     public void setExamScore(int examNum, double updateScore) {
+        scores[examNum] = updateScore;
     }
 
 
     public Double getAverageExamScore() {
-        return null;
+        double avg = 0;
+        for (double score : scores){
+            avg+=score;
+        }
+        return avg/scores.length;
     }
 
     @Override
     public String toString() {
-        return null;
+        String record = firstName + " " + lastName+":";
+        for (double score : scores){
+            record += " "+score;
+        }
+        return record;
     }
 
     /**
@@ -51,7 +77,26 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public int compareTo(Student studentToCompareAgainst) {
-        return Integer.valueOf(null);
+        double compare = getAverageExamScore();
+        double compareAgainst = studentToCompareAgainst.getAverageExamScore();
+        if (compare == compareAgainst){
+            return studentToCompareAgainst.getLastName().compareTo(lastName);
+        }
+        return (studentToCompareAgainst.getAverageExamScore().compareTo(getAverageExamScore()));
+        /*
+        if(getAverageExamScore()< studentToCompareAgainst.getAverageExamScore()){
+            return -1;
+        }
+        else if(getAverageExamScore()> studentToCompareAgainst.getAverageExamScore()){
+            return 1;
+        }
+        else{
+            return firstName.compareTo(studentToCompareAgainst.getFirstName());
+        }
+
+         */
+
+        //return Integer.valueOf(null);
     }
 }
 
