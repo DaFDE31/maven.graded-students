@@ -19,6 +19,9 @@ public class Student implements Comparable<Student> {
     }
 
     public Student() {
+        this.firstName = null;
+        this.lastName = null;
+        this.scores = new Double[0];
     }
 
     public String getFirstName() {

@@ -50,14 +50,13 @@ public class Classroom {
 
 
     public Boolean removeStudent(Student student) {
-        if (contains(student)){
-            Student [] update = new Student[classroom.length-1];
+        if (contains(student)) {
+            Student[] update = new Student[classroom.length - 1];
             int pos = 0;
-            for (int x = 0; x< classroom.length-1; x++){
-                if (classroom[x].equals(student)){
+            for (int x = 0; x < classroom.length - 1; x++) {
+                if (classroom[x].equals(student)) {
                     continue;
-                }
-                else{
+                } else {
                     update[pos] = classroom[x];
                     pos++;
                 }
@@ -69,7 +68,8 @@ public class Classroom {
         return false;
     }
 
-    public Student[] getStudentsByScore() {
+    //YOU FORGOT YOU HAVE A COMPARETO METHOD IDIOT
+    public Student[] getStudentsByScore1() {
         Student [] answer= new Student[classroom.length];
         List<Double> update = new ArrayList<>();
         for (Student peep : classroom){
@@ -90,6 +90,18 @@ public class Classroom {
 
         }
         //System.out.println(Arrays.toString(answer));
+        return answer;
+    }
+    public Student[] getStudentsByScore() {
+        Student [] answer= new Student[classroom.length];
+        int pop = 0;
+        List<Student> update = new ArrayList<>();
+        for(int x = 0; x< answer.length-1; x++){
+            if(classroom[pop].compareTo(classroom[x]) < 0){
+                update.add(0, classroom[pop]);
+            }
+        }
+
         return answer;
     }
 
