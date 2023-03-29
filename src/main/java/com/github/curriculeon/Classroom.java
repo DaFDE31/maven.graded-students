@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Classroom {
     Student [] classroom;
-    Map<Student, Character> roster = new HashMap<>();
 
     public Classroom(Student[] students) {
         classroom = students;
@@ -53,23 +52,20 @@ public class Classroom {
         if (contains(student)) {
             Student[] update = new Student[classroom.length - 1];
             int pos = 0;
-            for (int x = 0; x < classroom.length - 1; x++) {
-                if (classroom[x].equals(student)) {
-                    continue;
-                } else {
-                    update[pos] = classroom[x];
+            for (Student peep : classroom) {
+                if (!peep.equals(student)) {
+                    update[pos] = peep;
                     pos++;
                 }
             }
-            classroom = update;
 
+            classroom = update;
             return true;
         }
         return false;
     }
 
-    //YOU FORGOT YOU HAVE A COMPARETO METHOD IDIOT
-    public Student[] getStudentsByScore1() {
+    /*public Student[] getStudentsByScore1() {
         Student [] answer= new Student[classroom.length];
         List<Double> update = new ArrayList<>();
         for (Student peep : classroom){
@@ -92,22 +88,58 @@ public class Classroom {
         //System.out.println(Arrays.toString(answer));
         return answer;
     }
-    public Student[] getStudentsByScore() {
-        Student [] answer= new Student[classroom.length];
+
+    public Student[] getStudentsByScore2() {
+        Student [] answer= new Student[classroom.length+1];
         int pop = 0;
         List<Student> update = new ArrayList<>();
         for(int x = 0; x< answer.length-1; x++){
-            if(classroom[pop].compareTo(classroom[x]) < 0){
+            if(classroom[pop].compareTo(classroom[x]) > 0){
                 update.add(0, classroom[pop]);
             }
+            else{
+                update.add(classroom[pop]);
+            }
+            pop++;
         }
+        System.out.println(update);
+        answer = update.toArray(new Student[0]);
 
         return answer;
     }
 
+     */
+
+    public Student[] getStudentsByScore() {
+        return Arrays.asList(classroom)
+                .stream()
+                .sorted()
+                .toArray(Student[]::new);
+    }
+
 
     public Map<Student, Character> getGradeBook() {
-        return null;
+        Map<Student, Character> gradebook = new HashMap<>();
+        for (Student peep: classroom){
+            char grade;
+            if (peep.getAverageExamScore() >= 84){
+                grade = 'A';
+            }
+            else if (peep.getAverageExamScore() >= 71){
+                grade = 'B';
+            }
+            else if (peep.getAverageExamScore() >= 56){
+                grade = 'C';
+            }
+            else if (peep.getAverageExamScore() >= 46){
+                grade = 'D';
+            }
+            else{
+                grade = 'F';
+            }
+            gradebook.put(peep, grade);
+        }
+        return gradebook;
     }
 
 }

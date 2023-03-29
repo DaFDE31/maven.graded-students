@@ -65,6 +65,7 @@ public class Student implements Comparable<Student> {
         return avg/scores.length;
     }
 
+
     @Override
     public String toString() {
         String record = firstName + " " + lastName+":";
